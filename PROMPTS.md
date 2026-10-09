@@ -87,3 +87,55 @@ detectaba ciclos y no dejaba elegir el colapso) se reemplazó por la versión
 final. El prompt de corrección fue el mismo P1
 ("Creá el archivo src/logica.ts con las reglas de TRES EN RAYA CUÁNTICO,
 según la ficha de abajo"), precedido por las aclaraciones de arriba.
+
+---
+
+# PROMPTS.md — entrada P2
+
+## P2 · PRUEBAS · comprobar las reglas
+Fecha/hora: 2026-10-09 14:35
+Prompt enviado tal cual:
+
+`
+Escribí las pruebas de la lógica del juego con Vitest en test/logica.test.ts.
+- Nombres de los test en español, en forma de oración.
+- Mínimo 5 pruebas: estado inicial, jugada válida con dos índices, jugada
+  inválida, fin de partida (tres en raya y empate) y un recorrido completo de
+  principio a fin que resuelva un ciclo y llegue a un ganador.
+- Comentá cada prueba. No toques src/logica.ts.
+- Al final corré npm test y pegame el resultado.
+`
+
+Respuesta/acción del agente: reescribió test/logica.test.ts con 7 pruebas
+(estado inicial; jugada válida de dos índices; jugada inválida; no jugar en
+colapso ni sobre casilla colapsada; fin con 3 en raya y empate; recorrido
+completo con dos ciclos hasta ganador; reiniciar). Usa los guiones
+deterministas de una partida ganada por X y de una partida empatada.
+Resultado: `Test Files 1 passed (1)`, `Tests 7 passed (7)`.
+
+Corrección: la versión previa del archivo usaba la API vieja
+(seleccionarCasilla, colapsarSiCorresponde, CONFIG.JUGADOR_X) y no compilaba;
+se reemplazó por la API actual (crearPartida(), colocarJugadaCuantica(e,a,b),
+resolverColapso(e,c)). También se revirtió un cambio accidental en
+src/logica.ts que había puesto `colapso: any` en vez del tipo correcto.
+
+---
+
+# PROMPTS.md — entrada P3
+
+## P3 · PANTALLA · jugar desde el navegador
+Fecha/hora: 2026-10-09 14:00
+Prompt enviado tal cual:
+
+`
+La pantalla no muestra ningún juego. Hacé que se vea y se pueda jugar: tablero
+3x3, turno y fase, las fichas cuánticas, elegir casilla al colapsar, mensaje de
+victoria o empate y botón de reiniciar. Conectado a src/logica.ts, sin tocar la
+lógica.
+`
+
+Respuesta/acción del agente: reescribió src/main.ts y creó src/estilos.css con
+el tablero 3x3, indicador de turno (X azul / O naranja) y fase, fichas cuánticas
+en amarillo, resaltado de las dos casillas al colapsar, mensaje de victoria
+(verde) o empate (rojo), contador de movimientos, botón Reiniciar y navegación
+con teclado. Solo consume la API de src/logica.ts.
