@@ -1,0 +1,54 @@
+﻿FICHA - TRES EN RAYA CUÁNTICO
+Fecha: 2026-10-09
+Estudiante: Marjo6 (10266464@clases.edu.sv)
+
+NOMBRE DEL PROYECTO: Tres en Raya Cuántico
+
+EN UNA FRASE: Un tres en raya donde cada jugada pone dos fichas en superposición y solo se resuelve cuando chocan, creando cadenas inesperadas.
+
+PARA QUIÉN ES: Para dos jugadores que quieran probar una versión distinta al tres en raya clásico, ideal para jugar entre compañeros en clase o en feria.
+
+QUÉ LOGRA: Determinar un ganador o empate siguiendo las reglas cuánticas simplificadas, manteniendo claro el estado en todo momento.
+
+LOS TRES VERBOS:
+1. Jugar (colocar ficha cuántica en dos casillas)
+2. Colapsar (resolver superposiciones al producirse un conflicto)
+3. Verificar (comprobar victoria/empate al finalizar)
+
+TERMINA BIEN SI... Un jugador logra alinear tres de sus fichas colapsadas en fila, columna o diagonal.
+
+TERMINA MAL SI... Se llenan todas las casillas y nadie logra hacer tres en raya (empate).
+
+QUÉ SE VE EN PANTALLA:
+- Tablero 3x3 con casillas
+- Turno actual (Jugador X / Jugador O)
+- Estado: colocando (fase cuántica) o terminado
+- Ganador o empate
+- Contador de movimientos cuánticos
+- Botones: Reiniciar partida
+
+CONTROLES:
+- Con el teclado: Flechas para mover cursor + Enter/Barra espaciadora para seleccionar casilla
+- Con el dedo: Tocar directamente cada casilla (mínimo 44x44px)
+
+COLORES Y QUÉ SIGNIFICAN:
+- Azul (#38bdf8): Jugador X (fichas colapsadas)
+- Naranja (#fb923c): Jugador O (fichas colapsadas)
+- Amarillo (#fbbf24): Superposición / casillas con fichas cuánticas pendientes
+- Verde (#34d399): Victoria
+- Gris (#94a3b8): Neutro / tablero
+- Rojo (#f87171): Empate/alerta
+
+CRITERIO DE ACEPTACIÓN:
+"Abro el juego, veo el tablero vacío y turno de X. Coloco una jugada cuántica seleccionando dos casillas distintas. El tablero muestra las superposiciones. Continúo hasta que se produzca un colapso o hasta el final. Cuando hay tres en raya colapsadas, el juego muestra el ganador y se detiene. Puedo reiniciar con un toque."
+
+LO QUE NO VA:
+- IA (se dejará para mejora opcional)
+- Animaciones complejas
+- Sonido
+- Tableros mayores a 3x3
+- Guardado de partidas
+- Modo online/multijugador remoto
+
+FIRMA ESTUDIANTE: Marjo6
+FIRMA DOCENTE: ___________
