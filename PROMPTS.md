@@ -16,11 +16,11 @@ Orden de los ocho prompts: **P1** arranque · **P2** pruebas · **P3** pantalla 
 # PROMPTS.md — entrada P1
 
 ## P1 · ARRANQUE · las reglas
-Fecha/hora: 2026-10-09 11:35:58
+Fecha/hora: 2026-10-09 11:35:58 (reenviado corregido)
 Prompt enviado tal cual (con ficha pegada):
 
 `
-Creá el archivo src/logica.ts con las reglas de Tres en Raya Cuántico,
+Creá el archivo src/logica.ts con las reglas de TRES EN RAYA CUÁNTICO,
 según la ficha de abajo.
 
 REGLAS TÉCNICAS, obligatorias
@@ -41,12 +41,49 @@ REGLAS DE TRABAJO
   no decía nada.
 
 FICHA:
-FICHA - TRES EN RAYA CUÁNTICO
-...
+- Proyecto: Tres en raya cuántico
+- Cada jugada k consiste en marcar DOS casillas distintas con la marca X_k u O_k.
+- Cuando una jugada crea un ciclo/bucle entre casillas entrelazadas, se entra
+  en estado de RESOLUCIÓN DE COLAPSO: el jugador afectado debe elegir en cuál
+  de las dos casillas queda fijada la ficha actual, colapsando en cadena la
+  red de fichas entrelazadas a sus valores clásicos.
+- Termina cuando un jugador alinea 3 marcas colapsadas clásicas de su símbolo,
+  o cuando el tablero se llena y no hay ganador.
+- Un uso normal incluye: seleccionar 2 casillas -> colocar marca cuántica ->
+  cambiar turno. Si hay ciclo -> resolver colapso -> verificar si 3 en raya ->
+  cambiar turno o finalizar.
+- Lo que no va: sin animaciones 3D, sin temporizador, sin multijugador en red,
+  sin IA.
 `
 
-Respuesta/acción del agente (lo que hice): Generé src/logica.ts con lógica pura del Tres en Raya Cuántico (fase cuántica: cada jugada coloca ficha cuántica en dos casillas distintas; colapso cuando hay conflicto; detección de victoria con fichas COLAPSADAS; empate al tablero lleno sin victoria). Separé tipos, CONFIG, RNG con semilla, crearPartida, colocarJugadaCuantica, colapsarSiCorresponde, terminarTurno/chequeos, consultas. Sin DOM. Todo según ficha.
+Aclaraciones antes de codificar (el agente frenó y preguntó por lo ambiguo):
+- Quién resuelve el colapso: el jugador contrario al que provocó el ciclo.
+- Cadena de colapso: propagación por restricciones (no solo la jugada actual).
+- Azar: no hace falta; el juego es determinista (sin RNG).
+- API de jugada: una sola llamada con las dos casillas.
 
-Decisiones tomadas donde no decía: definí estados de fase (cuántica/colapso), modelo de superposición (set de casillas pendientes por turno), colapso al producirse alineación o al llenarse el espacio relevante (simplificado y determinista). Dejé fuera IA, sonidos, animaciones, tablero >3x3, online.
+Respuesta/acción del agente (lo que hizo): reescribió src/logica.ts con la
+lógica pura del juego. Detecta ciclos con un grafo de entrelazados (unión-buscar)
+que también cubre el doble enlace; al entrar en colapso, el contrario elige una
+de las dos casillas y todo el componente se resuelve en cadena (incluidos los
+tallos). Verifica el final tras cada colapso: 3 en raya solo con fichas clásicas;
+si ambos logran línea, gana la de menor subíndice máximo; empate si no quedan 2
+casillas para marcar. No toca pantalla. Verificado con tsc --strict y una
+simulación del ejemplo de la Wikipedia.
 
-Corrección: (ninguna)
+Decisiones tomadas donde la ficha no decía nada:
+- Casilla jugable = sin marca clásica; se pueden apilar fichas cuánticas sin
+  límite (no se implementó la regla de "última jugada en una sola casilla").
+- El subíndice k de cada jugada se guarda para el desempate por subíndice.
+- API: colocarJugadaCuantica(estado, a, b), resolverColapso(estado, casilla),
+  reiniciarPartida(estado) + consultas; los parámetros son índices 0..8.
+- Quien resuelve el colapso es el que mueve después.
+
+Dejé fuera (según la ficha y por ser determinista): azar/RNG, IA, animaciones,
+sonido, tablero mayor a 3x3, online y guardado de partidas.
+
+Corrección: la primera versión de src/logica.ts (importaba crypto de Node, no
+detectaba ciclos y no dejaba elegir el colapso) se reemplazó por la versión
+final. El prompt de corrección fue el mismo P1
+("Creá el archivo src/logica.ts con las reglas de TRES EN RAYA CUÁNTICO,
+según la ficha de abajo"), precedido por las aclaraciones de arriba.
